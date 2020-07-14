@@ -2,6 +2,9 @@ language: c
 compiler: gcc
 sudo: required
 dist: bionic
+arch:
+  - amd64
+  - ppc64le
 
 # Don't run Travis against tags, just new builds.
 # Tagged builds will always fail the test for whether we remembered to bump
@@ -37,23 +40,14 @@ jobs:
     - stage: Documentation
       name: "Documentation Update"
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./.travis/travis-docs.sh; fi'
-      arch:
-        - amd64
-        - ppc64le
    
     - stage: CentOS x86_64
       name: "CentOS 7 x86_64"
       script: ./.travis/travis-centos.sh
-      arch:
-        - amd64
-        - ppc64le
 
     - name: "CentOS 8 x86_64"
       script: ./.travis/travis-centos.sh
       arch:
-        - amd64
-        - ppc64le
-
 
     - stage: Fedora x86_64
       name: "Fedora 31 x86_64"
@@ -64,23 +58,13 @@ jobs:
 
     - name: "Fedora 32 x86_64"
       script: ./.travis/travis-fedora.sh
-      arch:
-        - amd64
-        - ppc64le
 
     - name: "Fedora rawhide x86_64"
       script: ./.travis/travis-fedora.sh
-      arch:
-        - amd64
-        - ppc64le
-
 
     - stage: Other Distributions
       name: "openSUSE tumbleweed"
       script: ./.travis/travis-opensuse.sh
-      arch:
-        - amd64
-        - ppc64le
 
     - name: "Arch Linux"
       script: ./.travis/travis-archlinux.sh
@@ -96,9 +80,6 @@ jobs:
 
     - name: "OpenMandriva cooker"
       script: ./.travis/travis-openmandriva.sh
-      arch:
-        - amd64
-        - ppc64le
 
     - stage: Fedora aarch64
       name: "Fedora 31 aarch64"
@@ -111,12 +92,9 @@ jobs:
       script: ./.travis/travis-fedora.sh
       arch: arm64
 
-
     - stage: Static Analysis
       name: "Coverity Scan"
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./.travis/travis-coverity.sh; fi'
-      arch: amd64
-
 
   allow_failures:
     - name: "Fedora rawhide x86_64"
